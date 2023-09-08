@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CGPA Calculator</title>
+</head>
+<style>
+    html{
+        background-color: skyblue;
+    }
+    
+    @media only screen and(max-widthx:600px)and(min-width:400px){
+        body{
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+       
+
+    }
+</style>
+
+<body>
+    <center>
+    <h1>CGPA Calculator</h1>
+   <h4 style="color: #fff;"> BY: V.GOKUL & M.SIVA SUBHRAMANIAN</h4> <br><br>
+    
+    <label for="credit">Enter Total Credits Earned:</label>
+    <input style=" background-color: skyblue; border-bottom: 2px solid#fff; border-radius: 25px;"type="number" id="credit" min="1" step="1"><br><br>
+    
+    <div id="subjects">
+        <p>Enter Subject-wise Details:</p>
+        <div id="subjectFields">
+            <!-- Subject fields will be dynamically added here -->
+        </div>
+        <button style="border-radius: 25px; background-color: #fff; border: none;" type="button" id="addSubject" >+Add Subject</button>
+    </div><br>
+    
+    <button style="border-radius: 25px; border: 2px solid green; padding: 10px; background-color: yellow;" type="button" id="calculate">Calculate CGPA</button>
+    
+    <div id="result">
+        <h2>Your CGPA is: <span id="cgpaResult"></span></h2>
+    </div>
+
+    <script>
+        // Function to calculate CGPA
+        function calculateCGPA() {
+            let totalCredits = parseFloat(document.getElementById('credit').value);
+            let totalGradePoints = 0;
+            let totalCreditsEarned = 0;
+            let A  =10;
+            let b=9;
+
+            // Loop through subject fields
+            const subjectFields = document.querySelectorAll('.subject-field');
+            subjectFields.forEach(field => {
+                let credits = parseFloat(field.querySelector('.credit-input').value);
+                let grade = parseFloat(field.querySelector('.grade-input').value);
+                totalGradePoints += (credits * grade);
+                totalCreditsEarned += credits;
+            });
+
+            // Calculate CGPA
+            const cgpa = totalGradePoints / totalCreditsEarned;
+
+            // Display CGPA
+            document.getElementById('cgpaResult').textContent = cgpa.toFixed(2);
+        }
+
+        // Function to add subject fields dynamically
+        document.getElementById('addSubject').addEventListener('click', function () {
+            const subjectFields = document.getElementById('subjectFields');
+            const subjectField = document.createElement('div');
+            subjectField.classList.add('subject-field');
+            subjectField.innerHTML = `
+                <label for="credit">Credits:</label>
+                <select type="number" class="credit-input" min="1" step="0.01">
+                    <option>CHOOSE</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+                <label for="grade">Grade:</label>
+                <select type="number" class="grade-input" min="0" max="10" step="0.01">
+                    <option>CHOOSE</option>
+                    <option>10</option>
+                    <option>9</option>
+                    <option>8</option>
+                    <option>7</option>
+                    <option>6</option>
+                    <option>5</option>
+                    <option>0</option>
+                </select><br><br>
+            `;
+            subjectFields.appendChild(subjectField);
+        });
+
+        // Calculate CGPA when the Calculate button is clicked
+        document.getElementById('calculate').addEventListener('click', calculateCGPA);
+    </script>
+    <table  border="black">
+    
+        <tr bgcolor="grey">
+            <th>GRADE</th>
+            <th>VALUE</th>
+        </tr>
+        <tr>
+            <td>O (Outstanding)</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>A+ (Excellence)</td>
+            <td>9</td>
+        </tr>
+        <tr>
+            <td>A (Very good)</td>
+            <td>8</td>
+        </tr>
+        <tr>
+            <td>B+ (Good)</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>B (Average)</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>C (Satisfication)</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>RA (Re-Appearance)</td>
+            <td>0</td>
+        </tr>
+    </table>
+</center>
+  
+
+</body>
+</html>
